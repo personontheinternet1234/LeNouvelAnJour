@@ -52,7 +52,7 @@ class Firework:
 
         self.particles = []
 
-        self.color = ["red", "white", "blue"][color]
+        self.color = color
 
         self.create()
 
@@ -86,6 +86,11 @@ class Firework:
             pygame.draw.circle(screen, p.col, (p.x, p.y), 2)
 
 
+def display_text(text, x, y, color):
+    text_surface = font.render(text, True, color)
+    screen.blit(text_surface, (x, y))
+
+
 pygame.init()
 screen = pygame.display.set_mode((xmax,ymax))
 
@@ -102,19 +107,47 @@ l_red = (255,100,100)
 
 clock = pygame.time.Clock()
 
+pygame.display.set_caption("Le Nouveau An")
+font = pygame.font.Font(None, 50)
+show_text = False
+text_display_time = 0
+
 fireworks = []
+color_var = white
+text_x = 0
+text_y = 0
 exit_flag = False
 while not exit_flag:
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            fireworks.append(Firework(mouse_x, mouse_y, random.randint(0,2)))
+
+            color = ["red", "white", "blue"][random.randint(0,2)]
+            fireworks.append(Firework(mouse_x, mouse_y, color))
+
+            text_x = mouse_x - 100 + random.randint(-50,50)
+            text_y = mouse_y - 50 + random.randint(-50,50)
+            show_text = True
+            text_display_time = pygame.time.get_ticks()
+
         elif event.type == QUIT:
             exit_flag = True
 
     screen.fill(black)
     for f in fireworks:
         f.tick()
+
+    if show_text:
+        if color == "blue":
+            color_var = blue
+        if color == "red":
+            color_var = red
+        if color == "white":
+            color_var = white
+
+        display_text("Feu d'Artifice", text_x, text_y, color_var)
+        if pygame.time.get_ticks() - text_display_time > 250:
+            show_text = False
 
     pygame.display.flip()
     clock.tick(50)
