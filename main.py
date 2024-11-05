@@ -107,7 +107,7 @@ l_red = (255,100,100)
 
 clock = pygame.time.Clock()
 
-pygame.display.set_caption("Le Nouveau An")
+pygame.display.set_caption("Le Nouvel An")
 font = pygame.font.Font(None, 50)
 show_text = False
 text_display_time = 0
