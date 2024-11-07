@@ -130,8 +130,10 @@ while not exit_flag:
             color = ["red", "white", "blue"][random.randint(0,2)]
             fireworks.append(Firework(mouse_x, mouse_y, color))
 
-            text_x = mouse_x - 100 + random.randint(-10,10)
-            text_y = mouse_y - 150 + random.randint(-10,10)
+            # text_x = mouse_x - 100 + random.randint(-10,10)
+            # text_y = mouse_y - 150 + random.randint(-10,10)
+            text_x = 50
+            text_y = 50
             show_text = True
             text_display_time = pygame.time.get_ticks()
 
@@ -157,7 +159,7 @@ while not exit_flag:
             color_var = white
 
         display_text(words[w][:w_i], text_x, text_y, color_var)
-        if pygame.time.get_ticks() - text_display_time > 250:
+        if pygame.time.get_ticks() - text_display_time > 10000000000:
             show_text = False
 
     pygame.display.flip()
